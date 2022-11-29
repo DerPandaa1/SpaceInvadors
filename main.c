@@ -70,9 +70,9 @@ int main(void)
         if (IsKeyPressed(KEY_F11)) {
             ToggleFullscreen();
         }
-        if(IsKeyPressed(KEY_N))
+        if(IsKeyPressed(KEY_N)&&startGame==0)
         {
-            //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!
+            //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!:)
             OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
             if(startGame==0) {
@@ -103,13 +103,15 @@ int main(void)
                     DrawRectangle(330,410,150,50,TRANS_GRAY);
                 }
             }
+            //Falls Play gedrückt wird
             if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==0)
             {
                 ClearBackground(BLACK);
-                startGame=1;
-                UnloadTexture(menuAnimTex);
-                UnloadImage(menuAnim);
+                startGame=1;                //startet das Spiel
+                UnloadTexture(menuAnimTex); //löscht das GIF aus
+                UnloadImage(menuAnim);      //dem Speicher
             }
+            //Falls Quit gedrückt wird
             if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==1)
             {
                 CloseWindow();
