@@ -1,7 +1,7 @@
 # SpaceInvadors
 Deniz Korte
-Ezgi Nachname 
-Jannis Nachname
+Ezgi Uestenci 
+Jannis Helfmeier
 
 Dieses Spaceinvador Spiel basiert auf der open source library raylib.
 Alle Quellen von unseren Assets sowie kleinere markierte Teile des Codes sind hier enthalten.
