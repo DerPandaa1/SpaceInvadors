@@ -7,7 +7,8 @@ int alienPosX=10; //x-Position des Linken Oberen ALiens
 int alienPosY=10; //y-Position des Linken Oberen ALiens
 int aliens[10][4]; //Array von Aliens 10 Nebeneinander,4 Untereinander      Wert des Arrays: 1=Lebend 0=Tod
 int aliensDirectionX=10;
-Texture2D imgAlien;
+Texture2D imgAlien[10][4];
+
 
 
 //Alle Aliens auf Lebend setzen
@@ -18,19 +19,24 @@ void initAliens(int arr[10][4])
         for(int j=0;j<4;j++)
         {
             arr[i][j]=1;
+            imgAlien[i][j] = LoadTexture("assets/Aliens.png");
         }
     }
+    
+    
 }
 
-void drawAliens(int arr[10][4],int posx, int posy,Texture2D imgAlien)
+void drawAliens(int arr[10][4],int posx, int posy)
 {
+    BeginDrawing();
     for (int i=0;i<10;i++)
+    {
+        for(int j=0;j<4;j++)
         {
-            for(int j=0;j<4;j++)
-            {
-                DrawTexture(imgAlien,posx+(i*30),posy+(j*30),WHITE);
-            }
+            DrawTextureEx(imgAlien[i][j],(Vector2){posx+(i*30),posy+(j*30)},0.0f,1.0f,WHITE);
         }
+    }
+    EndDrawing();    
 }
 int moveAliens(int Loopcounter,int screenWidth,int screenHeight)
 {

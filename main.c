@@ -16,7 +16,6 @@ int startGame = 0; //Hat 4 Zustände
  *  2=Spiel wurde Gewonnen
  * 3=Spiel wurde Verloren
  */
-Texture2D ímgAliens;
 
 int main(void)
 {
@@ -116,7 +115,6 @@ int main(void)
                     UnloadImage(menuAnim);      //dem Speicher
 
                     initAliens(aliens);
-                    imgAlien = LoadTexture("assets/Aliens.png");
                 }
                 //Falls Quit gedrückt wird
                 if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==1)
@@ -125,12 +123,11 @@ int main(void)
                 }
             }
 
-
             //HIER KOMMT DAS EIGENTLICHE LAUFENDE SPIEL REIN
             if(startGame==1)
             {
                 Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight);
-                drawAliens(aliens,alienPosX,alienPosY,imgAlien);
+                drawAliens(aliens,alienPosX,alienPosY);
             }
             //Verloren Zustand
             if(startGame==2)
@@ -148,7 +145,6 @@ int main(void)
     //Speicher freigeben
     UnloadTexture(menuAnimTex);
     UnloadImage(menuAnim);
-    UnloadTexture(imgAlien);
     CloseWindow();
 //<---------------------------------------------------------------------------------------------------------------------
     return 0;
