@@ -1,20 +1,25 @@
 #include "include/raylib.h"
+#include "include/alien.h"
+
+
+//globale Variablen
+int Loopcounter=0;
+int fps;
+int currentMonitor;
+const int screenWidth = 800;
+const int screenHeight = 800;
+int currentMenuObject=0;
+int animFrames = 0;
+int startGame = 0; //Hat 4 Zustände
+/*  0=Hauptmenü
+ *  1=Spiel am laufen
+ *  2=Spiel wurde Gewonnen
+ * 3=Spiel wurde Verloren
+ */
+Texture2D ímgAliens;
 
 int main(void)
 {
-    int fps;
-    int currentMonitor;
-    int screenWidth = 800;
-    int screenHeight = 800;
-    int currentMenuObject=0;
-    int animFrames = 0;
-    int startGame = 0; //Hat 4 Zustände
-    /*  0=Hauptmenü
-     *  1=Spiel am laufen
-     *  2=Spiel wurde Gewonnen
-     *  3=Spiel wurde Verloren
-     */
-
     //Schaltet MSAA und VSYNC ein
     SetConfigFlags(FLAG_MSAA_4X_HINT  | FLAG_VSYNC_HINT);
     //Initialisiert und öffnet das Fenster
@@ -102,26 +107,30 @@ int main(void)
                 {
                     DrawRectangle(330,410,150,50,TRANS_GRAY);
                 }
-            }
-            //Falls Play gedrückt wird
-            if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==0)
-            {
-                ClearBackground(BLACK);
-                startGame=1;                //startet das Spiel
-                UnloadTexture(menuAnimTex); //löscht das GIF aus
-                UnloadImage(menuAnim);      //dem Speicher
-            }
-            //Falls Quit gedrückt wird
-            if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==1)
-            {
-                CloseWindow();
+                //Falls Play gedrückt wird
+                if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==0)
+                {
+                    ClearBackground(BLACK);
+                    startGame=1;                //startet das Spiel
+                    UnloadTexture(menuAnimTex); //löscht das GIF aus
+                    UnloadImage(menuAnim);      //dem Speicher
+
+                    initAliens(aliens);
+                    imgAlien = LoadTexture("assets/Aliens.png");
+                }
+                //Falls Quit gedrückt wird
+                if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==1)
+                {
+                    CloseWindow();
+                }
             }
 
 
             //HIER KOMMT DAS EIGENTLICHE LAUFENDE SPIEL REIN
             if(startGame==1)
             {
-                DrawText("Hier kommt das Spiel hin",150,400,40,RED);
+                Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight);
+                drawAliens(aliens,alienPosX,alienPosY,imgAlien);
             }
             //Verloren Zustand
             if(startGame==2)
@@ -133,12 +142,13 @@ int main(void)
             {
 
             }
-
+            Loopcounter++;
             EndDrawing();
     }
     //Speicher freigeben
     UnloadTexture(menuAnimTex);
     UnloadImage(menuAnim);
+    UnloadTexture(imgAlien);
     CloseWindow();
 //<---------------------------------------------------------------------------------------------------------------------
     return 0;
