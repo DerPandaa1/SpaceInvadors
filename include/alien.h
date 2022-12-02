@@ -22,8 +22,6 @@ void initAliens(int arr[10][4])
             imgAlien[i][j] = LoadTexture("assets/Aliens.png");
         }
     }
-    
-    
 }
 
 void drawAliens(int arr[10][4],int posx, int posy)

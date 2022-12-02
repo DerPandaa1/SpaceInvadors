@@ -50,25 +50,8 @@ int main(void)
     //Fenster bleibt offen bis ESC gedrückt wird
     while (!WindowShouldClose())
     {
-        frameCounter++;
-        if (frameCounter >= frameDelay)
-        {
-            //Zum nächsten Frame iterieren
-            currentAnimFrame++;
-            if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
-
-            //MemoryOffset für den Playback
-            nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
-
-            // Der GPU die Daten für den nächsten Frame zu liefern
-            UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
-
-            frameCounter = 0;
-        }
         BeginDrawing();
         ClearBackground(BLACK);
-
-        DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
 
         //Ermöglicht es mit F11 Vollbildschirm zu öffnen
         if (IsKeyPressed(KEY_F11)) {
@@ -80,6 +63,27 @@ int main(void)
             OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
             if(startGame==0) {
+
+                //Frame basierter GIF Playback
+                frameCounter++;
+                if (frameCounter >= frameDelay)
+                {
+
+                    //Zum nächsten Frame iterieren
+                    currentAnimFrame++;
+                    if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
+
+                    //MemoryOffset für den Playback
+                    nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
+
+                    // Der GPU die Daten für den nächsten Frame zu liefern
+                    UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
+
+                    frameCounter = 0;
+                }
+
+                DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
+
                 //Zeichnet den Hauptbildschirm
                 DrawText("Space", 275, 80, 90, GREEN);
                 DrawText("Invaders", 210, 155, 90, GREEN);
