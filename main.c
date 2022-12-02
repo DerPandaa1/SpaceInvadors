@@ -38,6 +38,7 @@ int main(void)
 
     EnableCursor();
     //Space Invaders einlesen in RAM und danach in Textur auf die GPU schicken
+
     Image menuAnim = LoadImageAnim("assets/MainMenu.gif", &animFrames);
     Texture2D menuAnimTex = LoadTextureFromImage(menuAnim);
     unsigned int nextFrameDataOffset = 0;
@@ -64,7 +65,7 @@ int main(void)
         }
             if(startGame==0) {
 
-                //Frame basierter GIF Playback
+                //Frame basierter (leider) GIF Playback
                 frameCounter++;
                 if (frameCounter >= frameDelay)
                 {

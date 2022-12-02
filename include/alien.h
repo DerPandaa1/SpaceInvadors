@@ -13,6 +13,7 @@ Texture2D imgAlien[10][4];
 
 //Alle Aliens auf Lebend setzen
 void initAliens(int arr[10][4])
+
 {
     for (int i=0;i<10;i++)
     {
