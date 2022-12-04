@@ -62,8 +62,9 @@ int main(void)
         {
             //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!:)
             OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+
         }
-            if(startGame==0) {
+        if(startGame==0) {
 
                 //Frame basierter (leider) GIF Playback
                 frameCounter++;
@@ -76,7 +77,6 @@ int main(void)
 
                     //MemoryOffset für den Playback
                     nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
-
                     // Der GPU die Daten für den nächsten Frame zu liefern
                     UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
 

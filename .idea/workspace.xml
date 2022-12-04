@@ -15,7 +15,6 @@
     <list default="true" id="270047f7-5637-48fa-8c11-4abc6591f144" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.exe" beforeDir="false" afterPath="$PROJECT_DIR$/game.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/alien.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/alien.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +70,8 @@
       <workItem from="1669968549840" duration="201000" />
       <workItem from="1669972582323" duration="1401000" />
       <workItem from="1669977893721" duration="250000" />
-      <workItem from="1669994936121" duration="3000" />
+      <workItem from="1669994936121" duration="323000" />
+      <workItem from="1669995316343" duration="135000" />
     </task>
     <servers />
   </component>
