@@ -137,7 +137,7 @@ int main(void)
             //Verloren Zustand
             if(startGame==2)
             {
-
+                    ////fdhiahfafsaljfkafsjllka
             }
             //Gewonnen Zustand
             if(startGame==3)
