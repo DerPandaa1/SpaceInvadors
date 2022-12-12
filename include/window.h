@@ -37,6 +37,26 @@ void WindowInit(int screenWidth,int screenHeight){
     menuAnimTex = LoadTextureFromImage(menuAnim);
 }
 
+void UpdateMenuGIF(){
+    //Frame basierter (leider) GIF Playback
+    frameCounter++;
+
+    if (frameCounter >= frameDelay)
+    {
+
+        //Zum nächsten Frame iterieren
+        currentAnimFrame++;
+        if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
+
+        //MemoryOffset für den Playback
+        nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
+        // Der GPU die Daten für den nächsten Frame zu liefern
+        UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
+
+        frameCounter = 0;
+    }
+}
+
 int DrawMainScreen(){
     UpdateMenuGIF();
     DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
@@ -85,26 +105,6 @@ int DrawMainScreen(){
     }
     EndDrawing();
     return 0;
-}
-
-void UpdateMenuGIF(){
-    //Frame basierter (leider) GIF Playback
-    frameCounter++;
-
-    if (frameCounter >= frameDelay)
-    {
-
-        //Zum nächsten Frame iterieren
-        currentAnimFrame++;
-        if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
-
-        //MemoryOffset für den Playback
-        nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
-        // Der GPU die Daten für den nächsten Frame zu liefern
-        UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
-
-        frameCounter = 0;
-    }
 }
 
 #ifndef MAIN_C_WINDOW_H

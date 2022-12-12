@@ -1,6 +1,7 @@
 #include "include/raylib.h"
 #include "include/alien.h"
 #include "include/window.h"
+//#include "include/bullets.h"
 
 void gameLoop();
 
@@ -8,6 +9,11 @@ void gameLoop();
 int Loopcounter=0;
 const int screenWidth = 800;
 const int screenHeight = 800;
+int difficulty=1;
+/* 1=leicht
+ * 2=mittel
+ * 3=schwer
+ */
 int startGame = 0; //Hat 4 Zustände
 /*  0=Hauptmenü
  *  1=Spiel am laufen
@@ -18,18 +24,6 @@ int startGame = 0; //Hat 4 Zustände
 int main(void)
 {
     WindowInit(screenWidth,screenHeight);
-
-    //Space Invaders einlesen in RAM und danach in Textur auf die GPU schicken
-
-    /*
-    Image menuAnim = LoadImageAnim("assets/MainMenu.gif", &animFrames);
-    Texture2D menuAnimTex = LoadTextureFromImage(menuAnim);
-    unsigned int nextFrameDataOffset = 0;
-    int currentAnimFrame = 0;       // Momentaner Frame der Animation
-    int frameDelay = 20;            // Zeit in frames zwischen Animation schritten
-    int frameCounter = 0;
-     */
-
     //Haupt Spiel Loop
 //--------------------------------------------------------------------------------------------------------------------->
     //Fenster bleibt offen bis ESC gedrückt wird
@@ -58,7 +52,10 @@ int main(void)
         //Verloren Zustand
         if(startGame==2)
         {
-        ////fdhiahfafsaljfkafsjllka
+            //Müssen wir noch schöner machens
+            BeginDrawing();
+            DrawText("Verloren",400,400,20,WHITE);
+            EndDrawing();
         }
         //Gewonnen Zustand
         if(startGame==3)
@@ -76,6 +73,13 @@ int main(void)
 }
 
 void gameLoop(){
-    Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight);
+    Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
+    moveBullets(screenWidth,screenHeight);
+    if(Loopcounter<0){
+        startGame=2;
+        ClearBackground(BLACK);
+        return;
+
+    }
     drawAliens(aliens,alienPosX,alienPosY);
 }
