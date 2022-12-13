@@ -14,6 +14,11 @@ const int maxBullets=1000;
 bullet bulletList[1000];
 int currentBullets=0;
 
+//Gibt die Anzahl der aktuellen Schüsse zurück
+int getCurrentBullets()
+{
+    return currentBullets;
+}
 //Gibt den Schuss an dem index im Array zurück
 bullet getBullet(int index){
     return bulletList[index];

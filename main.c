@@ -1,4 +1,5 @@
 #include "include/raylib.h"
+#include "math.h"
 #include "include/bullets.h"
 #include "include/alien.h"
 #include "include/spaceFighter.h"
@@ -18,8 +19,8 @@ int difficulty=1;
 int startGame = 0; //Hat 4 Zustände
 /*  0=Hauptmenü
  *  1=Spiel am laufen
- *  2=Spiel wurde Gewonnen
- * 3=Spiel wurde Verloren
+ *  2=Spiel wurde Verloren
+ *  3=Spiel wurde Gewonnen
  */
 
 int main(void)
@@ -46,6 +47,11 @@ int main(void)
         if(startGame==0)
         {
             startGame=DrawMainScreen();
+            if(startGame==1)
+            {
+                initAliens();
+                initFighter();
+            }
         }
 
 
@@ -62,7 +68,10 @@ int main(void)
         //Gewonnen Zustand
         if(startGame==3)
         {
-
+            //Müssen wir noch schöner machens
+            BeginDrawing();
+            DrawText("Gewonnen",400,400,20,WHITE);
+            EndDrawing();
         }
         Loopcounter++;
     }
@@ -77,12 +86,23 @@ int main(void)
 void gameLoop(){
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
+    BeginDrawing();
+    moveFighter(screenWidth,screenHeight);
+    drawAliens(aliens);
+    EndDrawing();
+    startGame = checkFighterCollision(startGame);
+    checkAlienCollision();
+    if(getAliveAliens()==0)
+    {
+        startGame=3;
+    }
     if(Loopcounter<0){
         startGame=2;
+    }
+    if(startGame!=1)
+    {
         ClearBackground(BLACK);
         return;
-
     }
-    moveFighter(screenWidth,screenHeight);
-    drawAliens(aliens,alienPosX,alienPosY);
+
 }
