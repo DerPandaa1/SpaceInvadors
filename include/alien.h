@@ -3,7 +3,7 @@
 //
 #include "stdlib.h"
 #include "time.h"
-#include "bullets.h"
+//#include "bullets.h"
 //Aliens(Gegner) Initialisieren
 int alienPosX=10; //x-Position des Linken Oberen ALiens
 int alienPosY=10; //y-Position des Linken Oberen ALiens

@@ -1,7 +1,8 @@
 #include "include/raylib.h"
+#include "include/bullets.h"
 #include "include/alien.h"
+#include "include/spaceFighter.h"
 #include "include/window.h"
-//#include "include/bullets.h"
 
 void gameLoop();
 
@@ -23,6 +24,7 @@ int startGame = 0; //Hat 4 Zustände
 
 int main(void)
 {
+
     WindowInit(screenWidth,screenHeight);
     //Haupt Spiel Loop
 //--------------------------------------------------------------------------------------------------------------------->
@@ -81,5 +83,6 @@ void gameLoop(){
         return;
 
     }
+    moveFighter(screenWidth,screenHeight);
     drawAliens(aliens,alienPosX,alienPosY);
 }

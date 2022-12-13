@@ -95,6 +95,7 @@ int DrawMainScreen(){
         UnloadTexture(menuAnimTex); //löscht das GIF aus
         UnloadImage(menuAnim);      //dem Speicher
         initAliens(aliens);
+        initFighter();
 
         return 1;                //startet das Spiel
     }
