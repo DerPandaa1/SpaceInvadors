@@ -4,14 +4,17 @@
 #include "include/alien.h"
 #include "include/spaceFighter.h"
 #include "include/window.h"
+#include "stdio.h"
 
 void gameLoop();
 
 //globale Variablen
 int Loopcounter=0;
+int temp = 1;
 const int screenWidth = 800;
 const int screenHeight = 800;
-int difficulty=1;
+int difficulty;
+int debugMode=0;
 /* 1=leicht
  * 2=mittel
  * 3=schwer
@@ -25,13 +28,49 @@ int startGame = 0; //Hat 4 Zustände
 
 int main(void)
 {
-
+    //Ich wollte Sounds spielen, aber dies funktioniert noch nicht ganz daher auskommentiert
+    //Sound Dateien Laden
+    InitAudioDevice();
+    //Sound victorySound = LoadSound("assets/Victory_Sound.mp3");
     WindowInit(screenWidth,screenHeight);
     //Haupt Spiel Loop
 //--------------------------------------------------------------------------------------------------------------------->
     //Fenster bleibt offen bis ESC gedrückt wird
     while (!WindowShouldClose())
     {
+        if(startGame>1)
+        {
+            DrawText("Press CTRL to Main Menu",10,10,20,GREEN);
+        }
+        //Zurück ins Hauptmenü
+        if((IsKeyPressed(KEY_RIGHT_CONTROL)&&startGame>1)|| (IsKeyPressed(KEY_LEFT_CONTROL)&&startGame>1))
+        {
+            startGame=0;
+        }
+
+        //Spiel erneut spielen falls man gewonnen oder verloren hat
+        if ((IsKeyPressed(KEY_ENTER)&&startGame==3)||(IsKeyPressed(KEY_ENTER)&&startGame==2))
+        {
+            getCurrentBullets();
+            removeBullet(0);
+            startGame=1;
+            resetAlienPos();
+            initAliens();
+        }
+        //DEBUG OPTIONEN
+        if(IsKeyDown(KEY_LEFT_SHIFT)&&IsKeyDown(KEY_P))
+        {
+            debugMode=1;
+        }
+        if(IsKeyPressed(KEY_D)&&debugMode==1)
+        {
+            initAliens();
+            resetAlienPos();
+        }
+        if(IsKeyPressed(KEY_A)&&debugMode==1)
+        {
+            startGame=3;
+        }
         ClearBackground(BLACK);
 
         //Ermöglicht es mit F11 Vollbildschirm zu öffnen
@@ -42,7 +81,6 @@ int main(void)
         {
             //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!:)
             OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-
         }
         if(startGame==0)
         {
@@ -54,23 +92,40 @@ int main(void)
             }
         }
 
-
         if(startGame==1)
             gameLoop();
         //Verloren Zustand
         if(startGame==2)
         {
-            //Müssen wir noch schöner machens
+            //Müssen wir noch schöner machen
             BeginDrawing();
-            DrawText("Verloren",400,400,20,WHITE);
+            DrawText("You Loose",250,370,60,GREEN);
+            if(Loopcounter%60==0)
+            {
+                temp++;
+            }
+            if(temp%2==0)
+            {
+                DrawText("Press Enter to try again",75,450,50,RED);
+            }
             EndDrawing();
         }
         //Gewonnen Zustand
         if(startGame==3)
         {
-            //Müssen wir noch schöner machens
+            //Müssen wir noch schöner machen
             BeginDrawing();
-            DrawText("Gewonnen",400,400,20,WHITE);
+            DrawFPS(715, 7);
+            //PlaySound(victorySound);
+            DrawText("YOU WIN!",280,370,60,GREEN);
+            if(Loopcounter%60==0)
+            {
+                temp++;
+            }
+            if(temp%2==0)
+            {
+                DrawText("Press Enter to try again",75,450,50,RED);
+            }
             EndDrawing();
         }
         Loopcounter++;
@@ -83,7 +138,9 @@ int main(void)
     return 0;
 }
 
+
 void gameLoop(){
+    difficulty=getCurrentDifficulty();
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
     BeginDrawing();

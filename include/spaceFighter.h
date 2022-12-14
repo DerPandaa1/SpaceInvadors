@@ -23,12 +23,12 @@ void moveFighter(int screenWidth, int screenHeigth)
 {
     int fighterRot=0; // Rotation des Raumschiffes
     //Bewegung
-    if (IsKeyDown(KEY_LEFT))
+    if (IsKeyDown(KEY_LEFT)&&spacefighterPos.x>0)
     {
         spacefighterPos.x -= 4.0f;
         fighterRot=-3;
     }
-    else if (IsKeyDown(KEY_RIGHT))
+    else if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<750)
     {
         spacefighterPos.x += 4.0f;
         fighterRot=3;

@@ -11,7 +11,12 @@ Image menuAnim;
 Texture2D menuAnimTex;
 unsigned int nextFrameDataOffset = 0;
 int currentMenuObject=0;
+int Difficulty = 1;
 
+int getCurrentDifficulty()
+{
+    return Difficulty;
+}
 
 void WindowInit(int screenWidth,int screenHeight){
     //Schaltet MSAA und VSYNC ein
@@ -32,7 +37,6 @@ void WindowInit(int screenWidth,int screenHeight){
      *  Ich werde das bald ändern auf ein Frametime basiertes System
      *  Bis dahin werden die FPS auf 60 gekappt
      */
-
     menuAnim = LoadImageAnim("assets/MainMenu.gif", &animFrames);
     menuAnimTex = LoadTextureFromImage(menuAnim);
 }
@@ -59,35 +63,54 @@ void UpdateMenuGIF(){
 
 int DrawMainScreen(){
     UpdateMenuGIF();
-    DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
-
     BeginDrawing();
+    DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
     //Zeichnet den Hauptbildschirm
     DrawText("Space", 275, 80, 90, GREEN);
     DrawText("Invaders", 210, 155, 90, GREEN);
-    //DrawText("H", 400, 380, 20, YELLOW); //Nur zum Testen notwendig
-    DrawRectangle(325, 330, 160, 60, GREEN);    //Grüne Boxen und Titel Texte
-    DrawText("PLAY!", 335, 340, 50, BLACK);
+    //DrawText("H", 400, 380, 20, YELLOW);      //Nur zum Testen notwendig
+    DrawRectangle(325, 260, 160, 60, GREEN);    //Grüne Boxen und Titel Texte
+    DrawText("PLAY!", 335, 270, 50, BLACK);
     DrawRectangle(325, 405, 160, 60, GREEN);
     DrawText("Quit", 360, 412, 50, BLACK);
     DrawText("Press N for a secret", 640, 775, 15, NEAR_BLACK); //Sehr Wichtig!
-    DrawFPS(715, 7);
+    switch (Difficulty) {
+        case 1: DrawRectangle(325, 333, 160, 60, GREEN); break;
+        case 2: DrawRectangle(325, 333, 160, 60, YELLOW); break;
+        case 3: DrawRectangle(325, 333, 160, 60, RED); break;
+    }
+    DrawText("Difficulty",330,343,33,BLACK);
 
+    DrawFPS(715, 7);
     //Zeichnet den Grauen AuswahlKasten
     if (IsWindowFocused() == true && currentMenuObject == 0) {
-        DrawRectangle(330, 335, 150, 50, TRANS_GRAY);
+        DrawRectangle(330, 265, 150, 50, TRANS_GRAY);
     }
     //Zeichnet den Grauen Kasten auf den Auswahlelementen
     if (IsKeyPressed(KEY_DOWN)) {
-        currentMenuObject = 1;
+        currentMenuObject++;
     }
     if (IsKeyPressed(KEY_UP)) {
-        currentMenuObject = 0;
+        currentMenuObject--;
     }
     if(currentMenuObject==1)
     {
+        DrawRectangle(330,338,150,50,TRANS_GRAY);
+    }
+    if(currentMenuObject==2)
+    {
         DrawRectangle(330,410,150,50,TRANS_GRAY);
     }
+    //Darf nicht größer als 3 oder kleiner als 0 sein
+    if(currentMenuObject>=3)
+    {
+        currentMenuObject=2;
+    }
+    if(currentMenuObject<0)
+    {
+        currentMenuObject=0;
+    }
+
     //Falls Play gedrückt wird
     if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==0)
     {
@@ -97,8 +120,18 @@ int DrawMainScreen(){
 
         return 1;                //startet das Spiel
     }
-    //Falls Quit gedrückt wird
+    //Falls Difficulty gedrückt wird
     if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==1)
+    {
+        if(Difficulty==3)
+        {
+            Difficulty=1;
+        }
+        else
+            Difficulty++;
+    }
+    //Falls Quit gedrückt wird
+    if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==2)
     {
         CloseWindow();
     }

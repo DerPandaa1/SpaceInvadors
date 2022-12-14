@@ -11,6 +11,12 @@ int aliens[10][4]; //Array von Aliens 10 Nebeneinander,4 Untereinander      Wert
 int aliensDirectionX=10;
 Texture imgAlien;
 
+//Setzt die Aliens auf Anfang
+void resetAlienPos()
+{
+    alienPosX=10;
+    alienPosY=10;
+}
 
 //Alle Aliens auf Lebend setzen
 void initAliens()

@@ -23,6 +23,7 @@ int getCurrentBullets()
 bullet getBullet(int index){
     return bulletList[index];
 }
+
 //Entfernt den Schuss am Index
 void removeBullet(int index){
     //Alle Schüsse nach dem Index ein nach vorne rücken lassen
