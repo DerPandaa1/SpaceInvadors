@@ -12,7 +12,7 @@
 To build Space Invadors, run the following commands:
 
 ```sh
-cmake build -G "Unix Makefile" -B build
+cmake . -G "Unix Makefiles" -B build
 make -C build
 ```
 
