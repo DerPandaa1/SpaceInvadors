@@ -18,6 +18,11 @@ int getCurrentDifficulty()
     return Difficulty;
 }
 
+void loadTextures(){
+    menuAnim = LoadImageAnim("assets/MainMenu.gif", &animFrames);
+    menuAnimTex = LoadTextureFromImage(menuAnim);
+}
+
 void WindowInit(int screenWidth,int screenHeight){
     //Schaltet MSAA und VSYNC ein
     SetConfigFlags(FLAG_MSAA_4X_HINT  | FLAG_VSYNC_HINT);
@@ -37,8 +42,7 @@ void WindowInit(int screenWidth,int screenHeight){
      *  Ich werde das bald ändern auf ein Frametime basiertes System
      *  Bis dahin werden die FPS auf 60 gekappt
      */
-    menuAnim = LoadImageAnim("assets/MainMenu.gif", &animFrames);
-    menuAnimTex = LoadTextureFromImage(menuAnim);
+    loadTextures();
 }
 
 void UpdateMenuGIF(){
@@ -65,6 +69,7 @@ int DrawMainScreen(){
     UpdateMenuGIF();
     BeginDrawing();
     DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
+
     //Zeichnet den Hauptbildschirm
     DrawText("Space", 275, 80, 90, GREEN);
     DrawText("Invaders", 210, 155, 90, GREEN);

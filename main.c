@@ -1,10 +1,10 @@
+#include "stdio.h"
 #include "include/raylib.h"
 #include "math.h"
 #include "include/bullets.h"
 #include "include/alien.h"
 #include "include/spaceFighter.h"
 #include "include/window.h"
-#include "stdio.h"
 
 void gameLoop();
 
@@ -46,13 +46,13 @@ int main(void)
         if((IsKeyPressed(KEY_RIGHT_CONTROL)&&startGame>1)|| (IsKeyPressed(KEY_LEFT_CONTROL)&&startGame>1))
         {
             startGame=0;
+            loadTextures();
         }
 
         //Spiel erneut spielen falls man gewonnen oder verloren hat
         if ((IsKeyPressed(KEY_ENTER)&&startGame==3)||(IsKeyPressed(KEY_ENTER)&&startGame==2))
         {
-            getCurrentBullets();
-            removeBullet(0);
+            resetBullets();
             startGame=1;
             resetAlienPos();
             initAliens();
@@ -89,6 +89,8 @@ int main(void)
             {
                 initAliens();
                 initFighter();
+                resetBullets();
+                resetAlienPos();
             }
         }
 

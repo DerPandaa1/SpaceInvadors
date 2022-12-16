@@ -14,6 +14,15 @@ const int maxBullets=1000;
 bullet bulletList[1000];
 int currentBullets=0;
 
+//Resettet alle Schüsse
+void resetBullets(){
+    for (int i=0;i<maxBullets;i++){
+        bulletList[i].x=0;
+        bulletList[i].y=0;
+        bulletList[i].direction=0;
+    }
+}
+
 //Gibt die Anzahl der aktuellen Schüsse zurück
 int getCurrentBullets()
 {
