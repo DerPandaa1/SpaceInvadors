@@ -21,6 +21,7 @@ void resetBullets(){
         bulletList[i].y=0;
         bulletList[i].direction=0;
     }
+    currentBullets=0;
 }
 
 //Gibt die Anzahl der aktuellen Schüsse zurück
