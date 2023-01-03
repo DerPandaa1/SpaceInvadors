@@ -51,7 +51,6 @@ void UpdateMenuGIF(){
 
     if (frameCounter >= frameDelay)
     {
-
         //Zum nächsten Frame iterieren
         currentAnimFrame++;
         if (currentAnimFrame >= animFrames) currentAnimFrame = 0;

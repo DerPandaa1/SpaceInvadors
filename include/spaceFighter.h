@@ -1,4 +1,4 @@
-//
+    //
 // Created by ezgiu on 13.12.2022.
 //
 Texture spaceFighterImg;
