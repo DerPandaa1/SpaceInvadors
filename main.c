@@ -19,6 +19,7 @@ int debugMode=0;
  * 2=mittel
  * 3=schwer
  */
+
 int startGame = 0; //Hat 4 Zustände
 /*  0=Hauptmenü
  *  1=Spiel am laufen

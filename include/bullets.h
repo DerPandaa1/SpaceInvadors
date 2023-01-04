@@ -68,11 +68,11 @@ void drawBullets()
         bulletPos.y=bulletList[i].y;
         if(bulletList[i].direction==-1)
         {
-            DrawTextureEx(bulletTexture,bulletPos,-90.0,0.15,WHITE);
+            DrawTextureEx(bulletTexture,bulletPos,-90.0,0.12,WHITE);
         }
         else
         {
-            DrawTextureEx(bulletTexture,bulletPos,90.0,0.15,WHITE);
+            DrawTextureEx(bulletTexture,bulletPos,90.0,0.12,WHITE);
         }
     }
 }

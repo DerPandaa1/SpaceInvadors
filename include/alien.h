@@ -26,9 +26,6 @@ void initAliens()
         for(int j=0;j<4;j++)
         {
             aliens[i][j]=1;
-            //Wenn wir Zeit haben, können wir ja ein Instanz System aufbauen um nicht für jedes Alien eine eigene Textur
-            //laden zu müssen. Aber nur wenn wir fertig sind und Zeit haben.
-            //imgAlien[i][j] = LoadTexture("assets/Aliens.png");
         }
     }
     imgAlien=LoadTexture("assets/Aliens.png");

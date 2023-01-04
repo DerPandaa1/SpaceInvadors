@@ -58,7 +58,6 @@ void UpdateMenuGIF(){
         nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
         // Der GPU die Daten für den nächsten Frame zu liefern
         UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
-
         frameCounter = 0;
     }
 }

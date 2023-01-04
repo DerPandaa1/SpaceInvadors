@@ -4,9 +4,12 @@
 Texture spaceFighterImg;
 Vector2 spacefighterPos;
 int shootCooldown=0;
+Texture exhaust;
+Vector2 exhaustPos;
 
 void initFighter()
 {
+    exhaust = LoadTexture("assets/exhaust.png");
     spaceFighterImg= LoadTexture("assets/SpaceFighter.png");
     spacefighterPos.y=600;
     spacefighterPos.x=400;
@@ -27,6 +30,19 @@ void moveFighter(int screenWidth, int screenHeigth)
     {
         spacefighterPos.x -= 4.0f;
         fighterRot=-3;
+    }
+    if (IsKeyDown(KEY_DOWN)&&spacefighterPos.y<720)
+    {
+        spacefighterPos.y += 4.0f;
+    }
+    if (IsKeyDown(KEY_UP)&&spacefighterPos.y>350)
+    {
+        //Zeigt einen Antrieb am Raumschiff
+        spacefighterPos.y -= 4.0f;
+        exhaustPos.x = spacefighterPos.x+40.7;
+        exhaustPos.y = spacefighterPos.y+68;
+        if(IsKeyDown(KEY_DOWN)!=true)   //Damit der Antrieb nur beim "hoch" bewegen kommt
+        DrawTextureV(exhaust,exhaustPos,WHITE);
     }
     else if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<750)
     {
