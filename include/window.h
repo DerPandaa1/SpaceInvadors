@@ -32,7 +32,6 @@ void WindowInit(int screenWidth,int screenHeight){
     SetWindowIcon(LoadImage("assets/InvadersIcon.png"));
 
     EnableCursor();
-
     //Fragt ab wie viel Herz der Hauptbildschirm hat und setzt die Target FPS
     currentMonitor=GetCurrentMonitor();
     fps=GetMonitorRefreshRate(currentMonitor);

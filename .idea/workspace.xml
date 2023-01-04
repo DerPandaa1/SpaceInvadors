@@ -20,8 +20,9 @@
   <component name="ChangeListManager">
     <list default="true" id="270047f7-5637-48fa-8c11-4abc6591f144" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/SpaceFighter.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/SpaceFighter.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.exe" beforeDir="false" afterPath="$PROJECT_DIR$/game.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/bullets.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/bullets.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/spaceFighter.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/spaceFighter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/window.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/window.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
@@ -80,9 +81,9 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -110,7 +111,8 @@
       <workItem from="1670583908398" duration="1357000" />
       <workItem from="1670585411529" duration="2389000" />
       <workItem from="1672000961092" duration="65000" />
-      <workItem from="1672778821618" duration="5089000" />
+      <workItem from="1672778821618" duration="5118000" />
+      <workItem from="1672785290766" duration="7176000" />
     </task>
     <servers />
   </component>

@@ -38,110 +38,98 @@ int main(void)
     //Fenster bleibt offen bis ESC gedrückt wird
     while (!WindowShouldClose())
     {
-        if(startGame>1)
-        {
-            DrawText("Press CTRL to Main Menu",10,10,20,GREEN);
-        }
-        //Zurück ins Hauptmenü
-        if((IsKeyPressed(KEY_RIGHT_CONTROL)&&startGame>1)|| (IsKeyPressed(KEY_LEFT_CONTROL)&&startGame>1))
-        {
-            startGame=0;
-            loadTextures();
-        }
+            if (startGame > 1) {
+                DrawText("Press CTRL to Main Menu", 10, 10, 20, GREEN);
+            }
+            //Zurück ins Hauptmenü
+            if ((IsKeyPressed(KEY_RIGHT_CONTROL) && startGame > 1) ||
+                (IsKeyPressed(KEY_LEFT_CONTROL) && startGame > 1)) {
+                startGame = 0;
+                loadTextures();
+            }
 
-        //Spiel erneut spielen falls man gewonnen oder verloren hat
-        if ((IsKeyPressed(KEY_ENTER)&&startGame==3)||(IsKeyPressed(KEY_ENTER)&&startGame==2))
-        {
-            resetBullets();
-            startGame=1;
-            resetAlienPos();
-            initAliens();
-        }
-        //DEBUG OPTIONEN
-        if(IsKeyDown(KEY_LEFT_SHIFT)&&IsKeyDown(KEY_P))
-        {
-            debugMode=1;
-        }
-        if(IsKeyPressed(KEY_D)&&debugMode==1)
-        {
-            initAliens();
-            resetAlienPos();
-        }
-        if(IsKeyPressed(KEY_A)&&debugMode==1)
-        {
-            startGame=3;
-        }
-        ClearBackground(BLACK);
-
-        //Ermöglicht es mit F11 Vollbildschirm zu öffnen
-        if (IsKeyPressed(KEY_F11)) {
-            ToggleFullscreen();
-        }
-        if(IsKeyPressed(KEY_N)&&startGame==0)
-        {
-            //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!:)
-            OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-        }
-        if(startGame==0)
-        {
-            startGame=DrawMainScreen();
-            if(startGame==1)
-            {
-                initAliens();
-                initFighter();
+            //Spiel erneut spielen falls man gewonnen oder verloren hat
+            if ((IsKeyPressed(KEY_ENTER) && startGame == 3) || (IsKeyPressed(KEY_ENTER) && startGame == 2)) {
                 resetBullets();
+                startGame = 1;
+                resetAlienPos();
+                initAliens();
+            }
+            //DEBUG OPTIONEN
+            if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_P)) {
+                debugMode = 1;
+            }
+            if (IsKeyPressed(KEY_D) && debugMode == 1) {
+                initAliens();
                 resetAlienPos();
             }
-        }
+            if (IsKeyPressed(KEY_A) && debugMode == 1) {
+                startGame = 3;
+            }
+            ClearBackground(BLACK);
 
-        if(startGame==1)
-            gameLoop();
-        //Verloren Zustand
-        if(startGame==2)
-        {
-            //Müssen wir noch schöner machen
-            BeginDrawing();
-            DrawText("You Loose",250,370,60,GREEN);
-            if(Loopcounter%60==0)
-            {
-                temp++;
+            //Ermöglicht es mit F11 Vollbildschirm zu öffnen
+            if (IsKeyPressed(KEY_F11)) {
+                ToggleFullscreen();
             }
-            if(temp%2==0)
-            {
-                DrawText("Press Enter to try again",75,450,50,RED);
+            if (IsKeyPressed(KEY_N) && startGame == 0) {
+                //DARF AUF KEINEN FALL GEÄNDERT WERDEN!!!! WICHTIG!:)
+                OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             }
-            EndDrawing();
-        }
-        //Gewonnen Zustand
-        if(startGame==3)
-        {
-            //Müssen wir noch schöner machen
-            BeginDrawing();
-            DrawFPS(715, 7);
-            //PlaySound(victorySound);
-            DrawText("YOU WIN!",280,370,60,GREEN);
-            if(Loopcounter%60==0)
-            {
-                temp++;
+            if (startGame == 0) {
+                startGame = DrawMainScreen();
+                if (startGame == 1) {
+                    LoadBulletTex();
+                    initAliens();
+                    initFighter();
+                    resetBullets();
+                    resetAlienPos();
+                }
             }
-            if(temp%2==0)
-            {
-                DrawText("Press Enter to try again",75,450,50,RED);
+
+            if (startGame == 1)
+                gameLoop();
+            //Verloren Zustand
+            if (startGame == 2) {
+                //Müssen wir noch schöner machen
+                BeginDrawing();
+                DrawText("You Loose", 250, 370, 60, GREEN);
+                if (Loopcounter % 60 == 0) {
+                    temp++;
+                }
+                if (temp % 2 == 0) {
+                    DrawText("Press Enter to try again", 75, 450, 50, RED);
+                }
+                EndDrawing();
             }
-            EndDrawing();
-        }
-        Loopcounter++;
+            //Gewonnen Zustand
+            if (startGame == 3) {
+                //Müssen wir noch schöner machen
+                BeginDrawing();
+                DrawFPS(715, 7);
+                //PlaySound(victorySound);
+                DrawText("YOU WIN!", 280, 370, 60, GREEN);
+                if (Loopcounter % 60 == 0) {
+                    temp++;
+                }
+                if (temp % 2 == 0) {
+                    DrawText("Press Enter to try again", 75, 450, 50, RED);
+                }
+                EndDrawing();
+            }
+            Loopcounter++;
     }
     //Speicher freigeben
     UnloadTexture(menuAnimTex);
     UnloadImage(menuAnim);
+    UnloadBulletsTex();
     CloseWindow();
 //<---------------------------------------------------------------------------------------------------------------------
     return 0;
 }
 
-
-void gameLoop(){
+void gameLoop()
+{
     difficulty=getCurrentDifficulty();
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
@@ -153,6 +141,7 @@ void gameLoop(){
     checkAlienCollision();
     if(getAliveAliens()==0)
     {
+        startGame=3;
         startGame=3;
     }
     if(Loopcounter<0){

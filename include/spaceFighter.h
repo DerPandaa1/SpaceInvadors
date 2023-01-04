@@ -42,7 +42,6 @@ void moveFighter(int screenWidth, int screenHeigth)
     //Malen
     DrawTextureEx(spaceFighterImg, spacefighterPos, fighterRot, 1,WHITE);
 
-
     //shootCooldown erniedrigen
     if(shootCooldown>0) shootCooldown--;
 }
