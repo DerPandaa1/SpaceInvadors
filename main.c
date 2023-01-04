@@ -109,7 +109,7 @@ int main(void)
                 DrawFPS(715, 7);
                 //PlaySound(victorySound);
                 DrawText("YOU WIN!", 280, 370, 60, GREEN);
-                if (Loopcounter % 60 == 0) {
+                if (Loopcounter % 30 == 0) {
                     temp++;
                 }
                 if (temp % 2 == 0) {
