@@ -163,5 +163,4 @@ void gameLoop(){
         ClearBackground(BLACK);
         return;
     }
-
 }
