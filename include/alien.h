@@ -43,10 +43,13 @@ int AliensOutOfWindow(int screenWidth){
     for(int i=0;i<10;i++)
     {
         for(int j=0;j<4;j++){
-            Vector2 currentAlienVector = getAlienPos(i,j);
-            if(currentAlienVector.x<20 || currentAlienVector.x>(screenWidth-20))
+            if(aliens[i][j]==1)
             {
-                return 1;
+                Vector2 currentAlienVector = getAlienPos(i,j);
+                if(currentAlienVector.x<20 || currentAlienVector.x>(screenWidth-20))
+                {
+                    return 1;
+                }
             }
         }
     }
