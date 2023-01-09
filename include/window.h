@@ -44,26 +44,26 @@ void WindowInit(int screenWidth,int screenHeight){
     loadTextures();
 }
 
-void UpdateMenuGIF(){
+void UpdateMenuGIF(int Speed){
     //Frame basierter (leider) GIF Playback
-    frameCounter++;
-
-    if (frameCounter >= frameDelay)
+    for(int i=1;i<=Speed;i++)
     {
-        //Zum nächsten Frame iterieren
-        currentAnimFrame++;
-        if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
+    frameCounter++;
+        if (frameCounter >= frameDelay) {
+            //Zum nächsten Frame iterieren
+            currentAnimFrame++;
+            if (currentAnimFrame >= animFrames) currentAnimFrame = 0;
 
-        //MemoryOffset für den Playback
-        nextFrameDataOffset = menuAnim.width*menuAnim.height*4*currentAnimFrame;
-        // Der GPU die Daten für den nächsten Frame zu liefern
-        UpdateTexture(menuAnimTex, ((unsigned char *)menuAnim.data) + nextFrameDataOffset);
-        frameCounter = 0;
+            //MemoryOffset für den Playback
+            nextFrameDataOffset = menuAnim.width * menuAnim.height * 4 * currentAnimFrame;
+            // Der GPU die Daten für den nächsten Frame zu liefern
+            UpdateTexture(menuAnimTex, ((unsigned char *) menuAnim.data) + nextFrameDataOffset);
+            frameCounter = 0;
+        }
     }
 }
 
 int DrawMainScreen(){
-    UpdateMenuGIF();
     BeginDrawing();
     DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
 
