@@ -98,9 +98,6 @@ void moveBullets(int screenWidth, int screenHeigth){
     drawBullets();
 }
 
-
-
-
 #ifndef MAIN_C_BULLETS_H
 #define MAIN_C_BULLETS_H
 
