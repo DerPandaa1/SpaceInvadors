@@ -6,7 +6,7 @@ Jannis Helfmeier
 Repository https://github.com/DerPandaa1/SpaceInvadors
 Cmake-Infrastructur by https://github.com/mdartmann
 
-This Spaceinvador(Invador is on purpose) Game/Studentproject is based on the Open Source Library Raylib.
+This Spaceinvador(Invador is on purpose) Game/Studentproject is based on the Open Source Library Raylib
 All Sources of our Assets and Code that isnt ours is listed below.
 
 To Compile this game for yourself check out the releases Page.
