@@ -3,6 +3,7 @@
 //
 #include "stdlib.h"
 #include "time.h"
+#include "raylib.h"
 //#include "bullets.h"
 //Aliens(Gegner) Initialisieren
 int alienPosX=10; //x-Position des Linken Oberen ALiens
@@ -38,6 +39,20 @@ Vector2 getAlienPos(int index1,int index2)
     vector.y=alienPosY+(index2*45)+(imgAlien.width/2);
     return vector;
 }
+int AliensOutOfWindow(int screenWidth){
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<4;j++){
+            Vector2 currentAlienVector = getAlienPos(i,j);
+            if(currentAlienVector.x<20 || currentAlienVector.x>(screenWidth-20))
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 //Aktuell lebende Aliens
 int getAliveAliens()
 {
@@ -121,7 +136,7 @@ int moveAliens(int Loopcounter,int screenWidth,int screenHeight,int difficulty)
     {
         generateABullets(difficulty);
         //Falls Aliens Rand berührt Richtung invertieren und Y-Position verändern
-        if(alienPosX<10 || alienPosX>screenWidth-450)
+        if(AliensOutOfWindow(screenWidth)>0)
         {
             alienPosY+=60;
             aliensDirectionX*=-1;
