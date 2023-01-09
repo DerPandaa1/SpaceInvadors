@@ -79,6 +79,7 @@ int main(void)
             }
             if (startGame == 0) {
                 startGame = DrawMainScreen();
+                UpdateMenuGIF(Difficulty);
                 if (startGame == 1) {
                     LoadBulletTex();
                     initAliens();
