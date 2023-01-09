@@ -41,6 +41,26 @@ Vector2 getAlienPos(int index1,int index2)
     vector.y=alienPosY+(index2*45)+(imgAlien.width/2);
     return vector;
 }
+<<<<<<< Updated upstream
+=======
+int AliensOutOfWindow(int screenWidth){
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<4;j++){
+            if(aliens[i][j]==1)
+            {
+                Vector2 currentAlienVector = getAlienPos(i,j);
+                if(currentAlienVector.x<20 || currentAlienVector.x>(screenWidth))
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+>>>>>>> Stashed changes
 //Aktuell lebende Aliens
 int getAliveAliens()
 {
