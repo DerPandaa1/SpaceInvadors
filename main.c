@@ -54,10 +54,15 @@ int main(void)
             //Spiel erneut spielen falls man gewonnen oder verloren hat
             if ((IsKeyPressed(KEY_ENTER) && startGame == 3) || (IsKeyPressed(KEY_ENTER) && startGame == 2)) {
                 resetBullets();
+                if(startGame==2)
+                {
+                    highscore=0;
+                }
                 startGame = 1;
                 resetAlienPos();
                 initAliens();
             }
+
             //DEBUG OPTIONEN
             if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_P)) {
                 debugMode = 1;
@@ -97,6 +102,7 @@ int main(void)
             if (startGame == 2) {
                 //Müssen wir noch schöner machen
                 BeginDrawing();
+                DrawText(TextFormat("%i",highscore),335,10,50,RED);
                 DrawText("You Loose", 250, 370, 60, GREEN);
                 if (Loopcounter % 60 == 0) {
                     temp++;
@@ -105,12 +111,12 @@ int main(void)
                     DrawText("Press Enter to try again", 75, 450, 50, RED);
                 }
                 EndDrawing();
-                highscore=0;
             }
             //Gewonnen Zustand
             if (startGame == 3) {
                 //Müssen wir noch schöner machen
                 BeginDrawing();
+                DrawText(TextFormat("%i",highscore),335,280,60,YELLOW);
                 DrawFPS(715, 7);
                 //PlaySound(victorySound);
                 DrawText("YOU WIN!", 280, 370, 60, GREEN);
@@ -139,11 +145,19 @@ void gameLoop()
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
     BeginDrawing();
+    //Highscore berechnung sowie zeichnen des Textes
     if (hit==1)
     {
         highscore=highscore+1000;
     }
-    DrawText(TextFormat("%i",highscore),400,10,50,RED);
+    if(highscore>0)
+    {
+        DrawText(TextFormat("%i",highscore),360,10,50,GREEN);
+    }
+    else
+    {
+        DrawText(TextFormat("%i",highscore),380,10,50,GREEN);
+    }
     moveFighter(screenWidth,screenHeight);
     drawAliens(aliens);
     EndDrawing();

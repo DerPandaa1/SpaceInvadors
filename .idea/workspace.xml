@@ -77,6 +77,11 @@
   }
 }</component>
   <component name="RunManager" selected="C/C++ File.main.c - MinGW">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SpaceInvadors" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SpaceInvadors" TARGET_NAME="SpaceInvadors" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SpaceInvadors" RUN_TARGET_NAME="SpaceInvadors">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -135,6 +140,7 @@
       <workItem from="1672799964077" duration="1730000" />
       <workItem from="1673275976315" duration="403000" />
       <workItem from="1673276676715" duration="2225000" />
+      <workItem from="1673343556951" duration="331000" />
     </task>
     <servers />
   </component>
