@@ -9,6 +9,8 @@
 void gameLoop();
 
 //globale Variablen
+unsigned int highscore = 0;
+int hit;
 int Loopcounter=0;
 int temp = 1;
 const int screenWidth = 800;
@@ -103,6 +105,7 @@ int main(void)
                     DrawText("Press Enter to try again", 75, 450, 50, RED);
                 }
                 EndDrawing();
+                highscore=0;
             }
             //Gewonnen Zustand
             if (startGame == 3) {
@@ -136,11 +139,16 @@ void gameLoop()
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
     BeginDrawing();
+    if (hit==1)
+    {
+        highscore=highscore+1000;
+    }
+    DrawText(TextFormat("%i",highscore),400,50,50,RED);
     moveFighter(screenWidth,screenHeight);
     drawAliens(aliens);
     EndDrawing();
     startGame = checkFighterCollision(startGame);
-    checkAlienCollision();
+    hit=checkAlienCollision();
     if(getAliveAliens()==0)
     {
         startGame=3;

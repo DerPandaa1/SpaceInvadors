@@ -70,8 +70,9 @@ int getAliveAliens()
     return counter;
 }
 //Kollisionsabfrage Schüsse-Alien
-void checkAlienCollision()
+int checkAlienCollision()
 {
+    int Hit =0;
     for(int i=0;i<10;i++)
     {
         for(int j=0;j<4;j++)
@@ -94,6 +95,7 @@ void checkAlienCollision()
                 if(Diff<=20)
                 {
                     removeBullet(k);
+                    Hit=1;
                     currentBullets=getCurrentBullets();
                     aliens[i][j]=0;
                     break;
@@ -101,6 +103,7 @@ void checkAlienCollision()
             }
         }
     }
+    return Hit;
 }
 //Aliens Malen
 void drawAliens()
