@@ -7,7 +7,7 @@
 //#include "bullets.h"
 //Aliens(Gegner) Initialisieren
 int alienPosX=10; //x-Position des Linken Oberen ALiens
-int alienPosY=10; //y-Position des Linken Oberen ALiens
+int alienPosY=60; //y-Position des Linken Oberen ALiens
 int aliens[10][4]; //Array von Aliens 10 Nebeneinander,4 Untereinander      Wert des Arrays: 1=Lebend 0=Tod
 int aliensDirectionX=10;
 Texture imgAlien;
@@ -16,7 +16,7 @@ Texture imgAlien;
 void resetAlienPos()
 {
     alienPosX=10;
-    alienPosY=10;
+    alienPosY=60;
 }
 
 //Alle Aliens auf Lebend setzen
@@ -149,7 +149,7 @@ int moveAliens(int Loopcounter,int screenWidth,int screenHeight,int difficulty)
         }
         alienPosX+=aliensDirectionX;
         Loopcounter=0;
-        if(alienPosY>250){
+        if(alienPosY>(screenHeight-350)){
             return -1;
         }
     }

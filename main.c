@@ -143,7 +143,7 @@ void gameLoop()
     {
         highscore=highscore+1000;
     }
-    DrawText(TextFormat("%i",highscore),400,50,50,RED);
+    DrawText(TextFormat("%i",highscore),400,10,50,RED);
     moveFighter(screenWidth,screenHeight);
     drawAliens(aliens);
     EndDrawing();
