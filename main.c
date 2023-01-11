@@ -148,7 +148,7 @@ void gameLoop()
     //Highscore berechnung sowie zeichnen des Textes
     if (hit==1)
     {
-        highscore=highscore+1000;
+        highscore=highscore+(250*(Difficulty+1));
     }
     if(highscore>0)
     {
