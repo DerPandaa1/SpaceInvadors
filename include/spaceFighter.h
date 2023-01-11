@@ -44,7 +44,7 @@ void moveFighter(int screenWidth, int screenHeigth)
         if(IsKeyDown(KEY_DOWN)!=true)   //Damit der Antrieb nur beim "hoch" bewegen kommt
         DrawTextureV(exhaust,exhaustPos,WHITE);
     }
-    else if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<750)
+    if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<700)
     {
         spacefighterPos.x += 4.0f;
         fighterRot=3;

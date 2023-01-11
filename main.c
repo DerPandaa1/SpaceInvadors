@@ -63,9 +63,12 @@ int main(void)
                 initAliens();
             }
 
-            //DEBUG OPTIONEN
-            if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_P)) {
-                debugMode = 1;
+            //DEBUG OPTIONEN For Devs
+            if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_E)) {
+                    debugMode = 1;
+            }
+            if (IsKeyDown(KEY_LEFT_SHIFT) && IsKeyDown(KEY_R)) {
+            debugMode = 0;
             }
             if (IsKeyPressed(KEY_D) && debugMode == 1) {
                 initAliens();
@@ -74,6 +77,24 @@ int main(void)
             if (IsKeyPressed(KEY_A) && debugMode == 1) {
                 startGame = 3;
             }
+            if (IsKeyPressed(KEY_S) && debugMode == 1) {
+            startGame = 2;
+            }
+            if(debugMode==1)
+            {
+                DrawLine(400,1,400,799,RED);
+                DrawLine(1,400,800,400,RED);
+                DrawText("Press D to Reset the Aliens",10,5,15,WHITE);
+                DrawText("Press A to Win instantly",10,20,15,WHITE);
+                DrawText("Press S to Loose instantly",10,35,15,WHITE);
+                DrawText(TextFormat("Bullets: %i",getCurrentBullets()),10,50,15,WHITE);
+                DrawText(TextFormat("Aliens: %i",getAliveAliens()),10,65,15,WHITE);
+                DrawText(TextFormat("Frametime: %f",GetFrameTime()),10,80,15,WHITE);
+                DrawText(TextFormat("Monitor Refreshrate: %i",GetMonitorRefreshRate(GetCurrentMonitor())),605,40,15,WHITE);
+                DrawFPS(715,7);
+            }
+
+//-------------------<DebugOptionen enden hier
             ClearBackground(BLACK);
 
             //Ermöglicht es mit F11 Vollbildschirm zu öffnen
@@ -148,15 +169,19 @@ void gameLoop()
     //Highscore berechnung sowie zeichnen des Textes
     if (hit==1)
     {
-        highscore=highscore+(250*(Difficulty+1));
+        highscore=highscore+(250*(Difficulty+1)); //250 pro Alien mal Difficulty+1 für rundere Nummern
     }
-    if(highscore>0)
+    if(highscore>0&&highscore<100000) //Den Text mittig halten
     {
-        DrawText(TextFormat("%i",highscore),360,10,50,GREEN);
+        DrawText(TextFormat("%i",highscore),345,10,50,GREEN);
     }
-    else
+    if(highscore==0)
     {
-        DrawText(TextFormat("%i",highscore),380,10,50,GREEN);
+        DrawText(TextFormat("%i",highscore),387,10,50,GREEN);
+    }
+    if(highscore>100000)
+    {
+        DrawText(TextFormat("%i",highscore),340,10,50,GREEN);
     }
     moveFighter(screenWidth,screenHeight);
     drawAliens(aliens);
