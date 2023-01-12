@@ -1,6 +1,7 @@
 //
 // Created by derpa on 07.12.2022.
 //
+#include "raylib.h"
 int currentMonitor;
 int fps;
 int animFrames = 0;
@@ -63,13 +64,14 @@ void UpdateMenuGIF(int Speed){
     }
 }
 
-int DrawMainScreen(){
+int DrawMainScreen(int highscore){
     BeginDrawing();
     DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
 
     //Zeichnet den Hauptbildschirm
-    DrawText("Space", 275, 80, 90, GREEN);
-    DrawText("Invaders", 210, 155, 90, GREEN);
+    DrawText("Space", 275, 30, 90, GREEN);
+    DrawText("Invaders", 210, 105, 90, GREEN);
+    DrawText(TextFormat("Highscore : %8d",highscore),135,185,50,WHITE);
     //DrawText("H", 400, 380, 20, YELLOW);      //Nur zum Testen notwendig
     DrawRectangle(325, 260, 160, 60, GREEN);    //Grüne Boxen und Titel Texte
     DrawText("PLAY!", 335, 270, 50, BLACK);

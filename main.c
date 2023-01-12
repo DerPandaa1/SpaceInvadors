@@ -7,9 +7,12 @@
 #include "include/window.h"
 
 void gameLoop();
+void setHighscore();
+void getHighscore();
 
 //globale Variablen
 unsigned int highscore = 0;
+unsigned int score=0;
 int hit;
 int Loopcounter=0;
 int temp = 1;
@@ -36,6 +39,10 @@ int main(void)
     InitAudioDevice();
     //Sound victorySound = LoadSound("assets/Victory_Sound.mp3");
     WindowInit(screenWidth,screenHeight);
+
+    //Highscore aus der Datei auslesen
+    getHighscore();
+
     //Haupt Spiel Loop
 //--------------------------------------------------------------------------------------------------------------------->
     //Fenster bleibt offen bis ESC gedrückt wird
@@ -54,13 +61,12 @@ int main(void)
             //Spiel erneut spielen falls man gewonnen oder verloren hat
             if ((IsKeyPressed(KEY_ENTER) && startGame == 3) || (IsKeyPressed(KEY_ENTER) && startGame == 2)) {
                 resetBullets();
-                if(startGame==2)
-                {
-                    highscore=0;
-                }
                 startGame = 1;
                 resetAlienPos();
                 initAliens();
+                if(startGame==2){
+                    score=0;
+                }
             }
 
             //DEBUG OPTIONEN For Devs
@@ -106,7 +112,7 @@ int main(void)
                 OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             }
             if (startGame == 0) {
-                startGame = DrawMainScreen();
+                startGame = DrawMainScreen(highscore);
                 UpdateMenuGIF(Difficulty);
                 if (startGame == 1) {
                     LoadBulletTex();
@@ -123,7 +129,8 @@ int main(void)
             if (startGame == 2) {
                 //Müssen wir noch schöner machen
                 BeginDrawing();
-                DrawText(TextFormat("%i",highscore),335,10,50,RED);
+                DrawText(TextFormat("Aktueller Score: %8d",score),50,40,40,RED);
+                DrawText(TextFormat("Highscore: %8d",highscore),176,90,40,RED);
                 DrawText("You Loose", 250, 370, 60, GREEN);
                 if (Loopcounter % 60 == 0) {
                     temp++;
@@ -137,7 +144,8 @@ int main(void)
             if (startGame == 3) {
                 //Müssen wir noch schöner machen
                 BeginDrawing();
-                DrawText(TextFormat("%i",highscore),335,280,60,YELLOW);
+                DrawText(TextFormat("Aktueller Score: %8d",score),50,40,40,GREEN);
+                DrawText(TextFormat("Highscore: %8d",highscore),176,90,40,YELLOW);
                 DrawFPS(715, 7);
                 //PlaySound(victorySound);
                 DrawText("YOU WIN!", 280, 370, 60, GREEN);
@@ -159,6 +167,33 @@ int main(void)
 //<---------------------------------------------------------------------------------------------------------------------
     return 0;
 }
+void setHighscore()
+{
+    FILE *fp;
+    fp = fopen("highscore.txt","w+");
+    if(fp!=NULL)
+    {
+        fprintf(fp,"%d",highscore);
+    }
+    else
+    {
+        printf("Fehler\n");
+    }
+    fclose(fp);
+}
+void getHighscore()
+{
+    FILE *fp;
+    fp = fopen("highscore.txt","r");
+    if(fp==0)
+    {
+        highscore=0;
+        fclose(fp);
+        return;
+    }
+    fscanf(fp,"%d",&highscore);
+    fclose(fp);
+}
 
 void gameLoop()
 {
@@ -166,22 +201,22 @@ void gameLoop()
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
     BeginDrawing();
-    //Highscore berechnung sowie zeichnen des Textes
+    //score berechnung sowie zeichnen des Textes
     if (hit==1)
     {
-        highscore=highscore+(250*(Difficulty+1)); //250 pro Alien mal Difficulty+1 für rundere Nummern
+        score=score+(250*(Difficulty+1)); //250 pro Alien mal Difficulty+1 für rundere Nummern
     }
-    if(highscore>0&&highscore<100000) //Den Text mittig halten
+    if(score>0&&score<100000) //Den Text mittig halten
     {
-        DrawText(TextFormat("%i",highscore),345,10,50,GREEN);
+        DrawText(TextFormat("%i",score),345,10,50,GREEN);
     }
-    if(highscore==0)
+    if(score==0)
     {
-        DrawText(TextFormat("%i",highscore),387,10,50,GREEN);
+        DrawText(TextFormat("%i",score),387,10,50,GREEN);
     }
     if(highscore>100000)
     {
-        DrawText(TextFormat("%i",highscore),340,10,50,GREEN);
+        DrawText(TextFormat("%i",score),340,10,50,GREEN);
     }
     moveFighter(screenWidth,screenHeight);
     drawAliens(aliens);
@@ -198,6 +233,12 @@ void gameLoop()
     }
     if(startGame!=1)
     {
+        //Highscore setzten falls nötig und Score auf 0 setzten
+        if(score>highscore){
+            highscore=score;
+            setHighscore();
+        }
+
         ClearBackground(BLACK);
         return;
     }
