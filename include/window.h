@@ -69,9 +69,9 @@ int DrawMainScreen(int highscore){
     DrawTexture(menuAnimTex, GetScreenWidth()/2 - menuAnimTex.width/2, 400, WHITE);
 
     //Zeichnet den Hauptbildschirm
-    DrawText("Space", 275, 30, 90, GREEN);
+    DrawText("Space", 260, 30, 90, GREEN);
     DrawText("Invaders", 210, 105, 90, GREEN);
-    DrawText(TextFormat("Highscore : %8d",highscore),135,185,50,WHITE);
+    DrawText(TextFormat("Highscore : %8d",highscore),135,190,50,RED);
     //DrawText("H", 400, 380, 20, YELLOW);      //Nur zum Testen notwendig
     DrawRectangle(325, 260, 160, 60, GREEN);    //Grüne Boxen und Titel Texte
     DrawText("PLAY!", 335, 270, 50, BLACK);
@@ -132,7 +132,9 @@ int DrawMainScreen(int highscore){
             Difficulty=1;
         }
         else
+        {
             Difficulty++;
+        }
     }
     //Falls Quit gedrückt wird
     if(IsKeyPressed(KEY_ENTER)&&currentMenuObject==2)

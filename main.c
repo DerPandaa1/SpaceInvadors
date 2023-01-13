@@ -61,12 +61,13 @@ int main(void)
             //Spiel erneut spielen falls man gewonnen oder verloren hat
             if ((IsKeyPressed(KEY_ENTER) && startGame == 3) || (IsKeyPressed(KEY_ENTER) && startGame == 2)) {
                 resetBullets();
-                startGame = 1;
-                resetAlienPos();
-                initAliens();
+                resetEnergy();
                 if(startGame==2){
                     score=0;
                 }
+                startGame = 1;
+                resetAlienPos();
+                initAliens();
             }
 
             //DEBUG OPTIONEN For Devs
@@ -92,7 +93,7 @@ int main(void)
                 DrawLine(1,400,800,400,RED);
                 DrawText("Press D to Reset the Aliens",10,5,15,WHITE);
                 DrawText("Press A to Win instantly",10,20,15,WHITE);
-                DrawText("Press S to Loose instantly",10,35,15,WHITE);
+                DrawText("Press S to Lose instantly",10,35,15,WHITE);
                 DrawText(TextFormat("Bullets: %i",getCurrentBullets()),10,50,15,WHITE);
                 DrawText(TextFormat("Aliens: %i",getAliveAliens()),10,65,15,WHITE);
                 DrawText(TextFormat("Frametime: %f",GetFrameTime()),10,80,15,WHITE);
@@ -131,7 +132,7 @@ int main(void)
                 BeginDrawing();
                 DrawText(TextFormat("Aktueller Score: %8d",score),50,40,40,RED);
                 DrawText(TextFormat("Highscore: %8d",highscore),176,90,40,RED);
-                DrawText("You Loose", 250, 370, 60, GREEN);
+                DrawText("You Lose", 255, 370, 60, GREEN);
                 if (Loopcounter % 60 == 0) {
                     temp++;
                 }
@@ -201,6 +202,7 @@ void gameLoop()
     Loopcounter=moveAliens(Loopcounter,screenWidth,screenHeight,difficulty);
     moveBullets(screenWidth,screenHeight);
     BeginDrawing();
+
     //score berechnung sowie zeichnen des Textes
     if (hit==1)
     {
