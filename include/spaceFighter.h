@@ -16,6 +16,12 @@ void initFighter()
     spacefighterPos.y=550;
     spacefighterPos.x=350;
 }
+void resetFighterPos()
+{
+    spacefighterPos.y=550;
+    spacefighterPos.x=350;
+}
+
 //Gibt den Mittelpunkt des Raumschiffes zurück
 Vector2 getMidPos()
 {
@@ -28,20 +34,36 @@ void resetEnergy()
 {
     energy=499;
 }
-void moveFighter(int screenWidth, int screenHeigth)
+//ob der Spieler mit der energy bar kollidiert
+bool isPlayerColliding()
+{
+    if(spacefighterPos.y>685) {
+        if (spacefighterPos.x > 195 && spacefighterPos.x < 505) {
+            return true;
+        }
+    }
+    return false;
+}
+void moveFighter(int screenWidth, int screenHeight,float maxFighterHeight)
 {
     int fighterRot=0; // Rotation des Raumschiffes
     //Bewegung
     if (IsKeyDown(KEY_LEFT)&&spacefighterPos.x>0)
     {
-        spacefighterPos.x -= 4.0f;
-        fighterRot=-3;
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.x -= 4.0f;
+        }
     }
+    //Hält die Spielrand grenze ein und geht um das Energy Meter herrum
     if (IsKeyDown(KEY_DOWN)&&spacefighterPos.y<720)
     {
-        spacefighterPos.y += 4.0f;
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.y += 4.0f;
+        }
     }
-    if (IsKeyDown(KEY_UP)&&spacefighterPos.y>360)
+    if (IsKeyDown(KEY_UP)&&spacefighterPos.y>maxFighterHeight)
     {
         //Zeigt einen Antrieb am Raumschiff
         spacefighterPos.y -= 4.0f;
@@ -52,8 +74,11 @@ void moveFighter(int screenWidth, int screenHeigth)
     }
     if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<700)
     {
-        spacefighterPos.x += 4.0f;
-        fighterRot=3;
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.x += 4.0f;
+            fighterRot=3;
+        }
     }
 //Zeile 59 bis 84 ist Logik um zu berechnen wann der Spieler schießen darf
     if (energy > 0 && cooldown==0) {
@@ -81,18 +106,18 @@ void moveFighter(int screenWidth, int screenHeigth)
     }
     if(energy<500)
     {
-        energy=energy+1.6;
+        energy=energy+1.7;
     }
     //Die Energybar zeichnen
     Rectangle outline;
     outline.x=270;
-    outline.y=750;
+    outline.y=760;
     outline.width=250;
     outline.height=20;
 
     Rectangle bar;
     bar.x=271;
-    bar.y=751;
+    bar.y=761;
     bar.width=energy/2;
     bar.height=19;
 

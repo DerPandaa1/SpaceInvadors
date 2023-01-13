@@ -149,7 +149,7 @@ int moveAliens(int Loopcounter,int screenWidth,int screenHeight,int difficulty)
         }
         alienPosX+=aliensDirectionX;
         Loopcounter=0;
-        if(alienPosY>(screenHeight-350)){
+        if(alienPosY>(screenHeight-500)){
             return -1;
         }
     }

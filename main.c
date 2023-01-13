@@ -11,6 +11,7 @@ void setHighscore();
 void getHighscore();
 
 //globale Variablen
+float upperBound = 360;
 unsigned int highscore = 0;
 unsigned int score=0;
 int hit;
@@ -62,6 +63,7 @@ int main(void)
             if ((IsKeyPressed(KEY_ENTER) && startGame == 3) || (IsKeyPressed(KEY_ENTER) && startGame == 2)) {
                 resetBullets();
                 resetEnergy();
+                resetFighterPos();
                 if(startGame==2){
                     score=0;
                 }
@@ -89,6 +91,8 @@ int main(void)
             }
             if(debugMode==1)
             {
+                Vector2 PlayerPos;
+                PlayerPos=getMidPos();
                 DrawLine(400,1,400,799,RED);
                 DrawLine(1,400,800,400,RED);
                 DrawText("Press D to Reset the Aliens",10,5,15,WHITE);
@@ -96,7 +100,9 @@ int main(void)
                 DrawText("Press S to Lose instantly",10,35,15,WHITE);
                 DrawText(TextFormat("Bullets: %i",getCurrentBullets()),10,50,15,WHITE);
                 DrawText(TextFormat("Aliens: %i",getAliveAliens()),10,65,15,WHITE);
-                DrawText(TextFormat("Frametime: %f",GetFrameTime()),10,80,15,WHITE);
+                DrawText(TextFormat("PlayerPos x: %.2f",PlayerPos.x),10,80,15,WHITE);
+                DrawText(TextFormat("PlayerPos y: %.2f",PlayerPos.y),10,95,15,WHITE);
+                DrawText(TextFormat("Frametime: %f",GetFrameTime()),10,110,15,WHITE);
                 DrawText(TextFormat("Monitor Refreshrate: %i",GetMonitorRefreshRate(GetCurrentMonitor())),605,40,15,WHITE);
                 DrawFPS(715,7);
             }
@@ -220,7 +226,13 @@ void gameLoop()
     {
         DrawText(TextFormat("%i",score),340,10,50,GREEN);
     }
-    moveFighter(screenWidth,screenHeight);
+    //Bestimmt wie tief die Aliens sind und begrentzt demenstprechent die bewegung des Players
+    Vector2 lowestAlien=getAlienPos(3,9);
+    if (lowestAlien.y>=662)
+    {
+        upperBound=485;
+    }
+    moveFighter(screenWidth,screenHeight,upperBound);
     drawAliens(aliens);
     EndDrawing();
     startGame = checkFighterCollision(startGame);
