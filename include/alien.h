@@ -3,10 +3,11 @@
 //
 #include "stdlib.h"
 #include "time.h"
+#include "raylib.h"
 //#include "bullets.h"
 //Aliens(Gegner) Initialisieren
 int alienPosX=10; //x-Position des Linken Oberen ALiens
-int alienPosY=10; //y-Position des Linken Oberen ALiens
+int alienPosY=60; //y-Position des Linken Oberen ALiens
 int aliens[10][4]; //Array von Aliens 10 Nebeneinander,4 Untereinander      Wert des Arrays: 1=Lebend 0=Tod
 int aliensDirectionX=10;
 Texture imgAlien;
@@ -15,7 +16,7 @@ Texture imgAlien;
 void resetAlienPos()
 {
     alienPosX=10;
-    alienPosY=10;
+    alienPosY=60;
 }
 
 //Alle Aliens auf Lebend setzen
@@ -26,9 +27,6 @@ void initAliens()
         for(int j=0;j<4;j++)
         {
             aliens[i][j]=1;
-            //Wenn wir Zeit haben, können wir ja ein Instanz System aufbauen um nicht für jedes Alien eine eigene Textur
-            //laden zu müssen. Aber nur wenn wir fertig sind und Zeit haben.
-            //imgAlien[i][j] = LoadTexture("assets/Aliens.png");
         }
     }
     imgAlien=LoadTexture("assets/Aliens.png");
@@ -41,6 +39,23 @@ Vector2 getAlienPos(int index1,int index2)
     vector.y=alienPosY+(index2*45)+(imgAlien.width/2);
     return vector;
 }
+int AliensOutOfWindow(int screenWidth){
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<4;j++){
+            if(aliens[i][j]==1)
+            {
+                Vector2 currentAlienVector = getAlienPos(i,j);
+                if(currentAlienVector.x<20 || currentAlienVector.x>(screenWidth-20))
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
 //Aktuell lebende Aliens
 int getAliveAliens()
 {
@@ -55,8 +70,9 @@ int getAliveAliens()
     return counter;
 }
 //Kollisionsabfrage Schüsse-Alien
-void checkAlienCollision()
+int checkAlienCollision()
 {
+    int Hit =0;
     for(int i=0;i<10;i++)
     {
         for(int j=0;j<4;j++)
@@ -79,6 +95,7 @@ void checkAlienCollision()
                 if(Diff<=20)
                 {
                     removeBullet(k);
+                    Hit=1;
                     currentBullets=getCurrentBullets();
                     aliens[i][j]=0;
                     break;
@@ -86,6 +103,7 @@ void checkAlienCollision()
             }
         }
     }
+    return Hit;
 }
 //Aliens Malen
 void drawAliens()
@@ -124,14 +142,14 @@ int moveAliens(int Loopcounter,int screenWidth,int screenHeight,int difficulty)
     {
         generateABullets(difficulty);
         //Falls Aliens Rand berührt Richtung invertieren und Y-Position verändern
-        if(alienPosX<10 || alienPosX>screenWidth-450)
+        if(AliensOutOfWindow(screenWidth)>0)
         {
             alienPosY+=60;
             aliensDirectionX*=-1;
         }
         alienPosX+=aliensDirectionX;
         Loopcounter=0;
-        if(alienPosY>250){
+        if(alienPosY>(screenHeight-500)){
             return -1;
         }
     }

@@ -8,7 +8,7 @@ typedef struct bullet{
     int y;
     int direction; //1=bewegung nach unten   -1=bewegung nach oben
 }bullet;
-
+Texture bulletTexture;
 //Maximal 1000 Schüsse
 const int maxBullets=1000;
 bullet bulletList[1000];
@@ -62,9 +62,28 @@ void drawBullets()
 {
     for (int i=0;i<currentBullets;i++)
     {
-        DrawRectangle(bulletList[i].x,bulletList[i].y,2,5,WHITE);
+        //Die momentane Position in einen Vektor übertragen
+        Vector2 bulletPos;
+        bulletPos.x=bulletList[i].x;
+        bulletPos.y=bulletList[i].y;
+        if(bulletList[i].direction==-1)
+        {
+            DrawTextureEx(bulletTexture,bulletPos,-90.0,0.12,WHITE);
+        }
+        else
+        {
+            DrawTextureEx(bulletTexture,bulletPos,90.0,0.12,WHITE);
+        }
     }
 }
+//Die Torpedos in den Speicher rein und rausladen
+void LoadBulletTex(){
+    bulletTexture = LoadTexture("assets/Torpedo.png");
+}
+void UnloadBulletsTex(){
+    UnloadTexture(bulletTexture);
+}
+
 //Bewegt die Schüsse
 void moveBullets(int screenWidth, int screenHeigth){
     for (int i=0;i<currentBullets;i++)
@@ -78,9 +97,6 @@ void moveBullets(int screenWidth, int screenHeigth){
     }
     drawBullets();
 }
-
-
-
 
 #ifndef MAIN_C_BULLETS_H
 #define MAIN_C_BULLETS_H

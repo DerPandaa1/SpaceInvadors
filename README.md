@@ -8,11 +8,11 @@
 * CMake infrastructure by [@mdartmann](ttps://github.com/mdartmann)
 
 This space invador (invador is on purpose) game/student project is based on the
-open-source library Raylib.
+open-source library Raylib. Debug options on Shift+E to enable and to disable Shift+R
 
 All sources of our assets and code that isnt ours [is listed below](#sources).
 
-To compile this game for yourself, check out the releases page.
+To compile this game for yourself, check out the releases page. 
 
 ## Sources
 

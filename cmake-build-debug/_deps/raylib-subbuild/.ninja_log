@@ -1,0 +1,21 @@
+# ninja log v5
+0	64	6949791969298037	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir	96c195c9fa98eed9
+0	64	6949791969298037	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir	96c195c9fa98eed9
+64	30029	6949792268933175	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download	345b1fbd047559b
+64	30029	6949792268933175	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download	345b1fbd047559b
+30035	30087	6949792269525656	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update	57bed4111f8dc074
+30035	30087	6949792269525656	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update	57bed4111f8dc074
+30088	30144	6949792270104965	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch	fa0ae12d717254b1
+30088	30144	6949792270104965	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch	fa0ae12d717254b1
+30144	30190	6949792270564566	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure	ad1d874a9834eb6f
+30144	30190	6949792270564566	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure	ad1d874a9834eb6f
+30190	30241	6949792271073789	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build	ef49c535ac7f2ef
+30190	30241	6949792271073789	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build	ef49c535ac7f2ef
+30241	30284	6949792271520300	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install	7b57ea4168e509c1
+30241	30284	6949792271520300	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install	7b57ea4168e509c1
+30284	30327	6949792271937641	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test	b39dbfe2d16f3707
+30284	30327	6949792271937641	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test	b39dbfe2d16f3707
+30328	30401	6949792272682309	CMakeFiles/raylib-populate-complete	6fa260dd75873464
+30328	30401	6949792272682309	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done	6fa260dd75873464
+30328	30401	6949792272682309	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete	6fa260dd75873464
+30328	30401	6949792272682309	C:/Users/densd/Documents/GitHub/SpaceInvadors/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done	6fa260dd75873464

@@ -4,13 +4,24 @@
 Texture spaceFighterImg;
 Vector2 spacefighterPos;
 int shootCooldown=0;
-
+int counter=0;
+int cooldown = 0 ;
+Texture exhaust;
+Vector2 exhaustPos;
+float energy = 499;
 void initFighter()
 {
+    exhaust = LoadTexture("assets/exhaust.png");
     spaceFighterImg= LoadTexture("assets/SpaceFighter.png");
-    spacefighterPos.y=600;
-    spacefighterPos.x=400;
+    spacefighterPos.y=550;
+    spacefighterPos.x=350;
 }
+void resetFighterPos()
+{
+    spacefighterPos.y=550;
+    spacefighterPos.x=350;
+}
+
 //Gibt den Mittelpunkt des Raumschiffes zurück
 Vector2 getMidPos()
 {
@@ -19,29 +30,100 @@ Vector2 getMidPos()
     vector.y=spacefighterPos.y+(spaceFighterImg.width/2);
     return vector;
 }
-void moveFighter(int screenWidth, int screenHeigth)
+void resetEnergy()
+{
+    energy=499;
+}
+//ob der Spieler mit der energy bar kollidiert
+bool isPlayerColliding()
+{
+    if(spacefighterPos.y>685) {
+        if (spacefighterPos.x > 195 && spacefighterPos.x < 505) {
+            return true;
+        }
+    }
+    return false;
+}
+void moveFighter(int screenWidth, int screenHeight,float maxFighterHeight)
 {
     int fighterRot=0; // Rotation des Raumschiffes
     //Bewegung
     if (IsKeyDown(KEY_LEFT)&&spacefighterPos.x>0)
     {
-        spacefighterPos.x -= 4.0f;
-        fighterRot=-3;
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.x -= 4.0f;
+        }
     }
-    else if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<750)
+    //Hält die Spielrand grenze ein und geht um das Energy Meter herrum
+    if (IsKeyDown(KEY_DOWN)&&spacefighterPos.y<720)
     {
-        spacefighterPos.x += 4.0f;
-        fighterRot=3;
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.y += 4.0f;
+        }
     }
-    if (IsKeyDown(KEY_SPACE)&&shootCooldown<=0)
+    if (IsKeyDown(KEY_UP)&&spacefighterPos.y>maxFighterHeight)
     {
-        Vector2 fighterPos=getMidPos();
-        addBullet(-1,fighterPos.x,fighterPos.y);
-        shootCooldown=10;
+        //Zeigt einen Antrieb am Raumschiff
+        spacefighterPos.y -= 4.0f;
+        exhaustPos.x = spacefighterPos.x+40.7;
+        exhaustPos.y = spacefighterPos.y+68;
+        if(IsKeyDown(KEY_DOWN)!=true)   //Damit der Antrieb nur beim "hoch" bewegen kommt
+        DrawTextureV(exhaust,exhaustPos,WHITE);
     }
-    //Malen
-    DrawTextureEx(spaceFighterImg, spacefighterPos, fighterRot, 1,WHITE);
+    if (IsKeyDown(KEY_RIGHT)&&spacefighterPos.x<700)
+    {
+        if(isPlayerColliding()==false)
+        {
+            spacefighterPos.x += 4.0f;
+            fighterRot=3;
+        }
+    }
+//Zeile 59 bis 84 ist Logik um zu berechnen wann der Spieler schießen darf
+    if (energy > 0 && cooldown==0) {
+        if (IsKeyDown(KEY_SPACE) && shootCooldown <= 0) {
+            Vector2 fighterPos = getMidPos();
+            addBullet(-1, fighterPos.x, fighterPos.y);
+            shootCooldown = 10;
+            energy = energy - 35;
+            cooldown=0;
+        }
+    }
+//Shootcooldown ist für den Cooldown zwischen jedem Schuss und
+//cooldown ist für den cooldown wenn die energybar leer geht
+    if(energy<0) {
+        cooldown = 1;
+    }
+    if(cooldown==1)
+    {
+        counter++;
+        if(counter>160) //160 Frames werden gewartet bevor man wieder schießen darf
+        {
+            cooldown=0;
+            counter=0;
+        }
+    }
+    if(energy<500)
+    {
+        energy=energy+1.7;
+    }
+    //Die Energybar zeichnen
+    Rectangle outline;
+    outline.x=270;
+    outline.y=760;
+    outline.width=250;
+    outline.height=20;
 
+    Rectangle bar;
+    bar.x=271;
+    bar.y=761;
+    bar.width=energy/2;
+    bar.height=19;
+
+    DrawTextureEx(spaceFighterImg, spacefighterPos, fighterRot, 1,WHITE);
+    DrawRectangleRounded(bar,0.9,10,GREEN);
+    DrawRectangleRoundedLines(outline,0.9,10,6,RED);
 
     //shootCooldown erniedrigen
     if(shootCooldown>0) shootCooldown--;
